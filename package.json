@@ -25,6 +25,16 @@
     "axios": "^0.16.2",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
-    "sequelize": "^4.41.1"
+    "material-auto-rotating-carousel": "^2.1.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "react-swipeable-views": "^0.13.0",
+    "sequelize": "^4.41.1",
+    "typeface": "^0.0.0",
+    "typeface-cantarell": "^0.0.54",
+    "typeface-fjalla-one": "^0.0.54",
+    "typeface-karla": "^0.0.54",
+    "typeface-rubik": "^0.0.54",
+    "typeface-rubik-mono-one": "^0.0.54",
+    "webfontloader": "^1.6.28"
   }
 }
