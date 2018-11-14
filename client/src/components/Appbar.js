@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Image from './img/Logo.png';
+import Grid from '@material-ui/core/Grid';
 
 
 
@@ -86,9 +87,12 @@ const styles = theme => ({
         padding: theme.spacing.unit * 3,
     },
     image: {
-        width: 130,   
-        alignItems: 'center'     
-    }
+        width: 130,
+        position: 'absolute',
+        left: '50%',
+        transform: 'translate(-50%)'
+    },
+
 
 });
 
@@ -131,13 +135,12 @@ class MiniDrawer extends React.Component {
                                 [classes.hide]: this.state.open,
                             })}
                         >
- 
                             <MenuIcon />
-
                         </IconButton>
-                        
-                        <img className={classes.image}src={Image} />
-                        
+                        <img className={classes.image} src={Image} />
+
+
+
 
 
                     </Toolbar>
