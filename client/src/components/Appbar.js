@@ -19,6 +19,7 @@ import RecentIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
 import Image from './img/Logo.png';
+import Grid from '@material-ui/core/Grid';
 
 import Grid from './Grid';
 
