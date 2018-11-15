@@ -15,6 +15,11 @@ import RecentIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
 import Image from './img/Logo.png';
+<<<<<<< HEAD
+=======
+
+import Grid from './Grid';
+>>>>>>> a7a4aa4f06d39601d126a67e9fc41596aa7e5099
 
 const drawerWidth = 240;
 
