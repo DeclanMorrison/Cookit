@@ -2,10 +2,10 @@ import React from "react";
 import Appbar from "./components/Appbar";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from "./components/Grid";
-import GridList from "./components/GridList";
-import CalendarDay from "./components/CalendarDay";
 import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 
 const styles = {
@@ -20,16 +20,7 @@ const styles = {
 const App = (props) => {
   const { classes } = props;
   return (
-    <React.Fragment>
-      <Appbar>
-        <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> This Week</Typography>
-        <br/>
-        <Divider/>
-        <br/>
-        <Grid className={classes.grid}/>
-        {/* <GridList></GridList> */}
-      </Appbar>
-    </React.Fragment>
+    <Login />
   );
 };
 
