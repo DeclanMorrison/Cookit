@@ -1,23 +1,36 @@
-//All page-level components will be arranged here, and switched using the React Router.
-
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { 
-  AppBar, 
-  Button,
-  Toolbar,
-  Typography } from "@material-ui/core";
+import Appbar from "./components/Appbar";
+import { withStyles } from '@material-ui/core/styles';
+import Grid from "./components/Grid";
+import { Typography, Divider } from "@material-ui/core";
+import 'typeface-fjalla-one';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
-const App = () => (
-  <div>
-    <AppBar position="static" color="default">
-      <Toolbar>
-        <Typography variant="h6" color="inherit">
-          Photos
-        </Typography>
-      </Toolbar>
-    </AppBar>
-  </div>
-);
 
-export default App;
+const styles = {
+  sectionHeader: {
+    fontFamily: "Fjalla One",
+  },
+  grid: {
+    overflowX: 'auto'
+  }
+};
+
+const App = (props) => {
+  const { classes } = props;
+  return (
+    <Router>
+    <div>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/home" component={Home} />
+        {/* <Route component={NoMatch} /> */}
+      </Switch>
+    </div>
+  </Router>
+  );
+};
+
+export default withStyles(styles)(App);
