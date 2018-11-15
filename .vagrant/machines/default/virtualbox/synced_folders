@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/code":{"nfs":{"mount_options":["dmode=777","fmode=666"]},"guestpath":"/var/code","hostpath":"C:/Users/decla/Cookit/code","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/decla/Cookit","disabled":false,"__vagrantfile":true}}}
