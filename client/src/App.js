@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from "./components/Grid";
 import GridList from "./components/GridList";
 import CalendarDay from "./components/CalendarDay";
-import { Typography } from "@material-ui/core";
+import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 
 
@@ -22,9 +22,12 @@ const App = (props) => {
   return (
     <React.Fragment>
       <Appbar>
-        <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3">| This Week</Typography>
-        {/* <Grid className={classes.grid}/> */}
-        <GridList></GridList>
+        <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> This Week</Typography>
+        <br/>
+        <Divider/>
+        <br/>
+        <Grid className={classes.grid}/>
+        {/* <GridList></GridList> */}
       </Appbar>
     </React.Fragment>
   );

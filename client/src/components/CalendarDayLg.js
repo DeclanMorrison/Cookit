@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    height: '99%',
+    height: '12vw',
+    width: '12vw',
   },
   title: {
     fontSize: 14,
@@ -25,10 +26,10 @@ function SimpleCard(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {props.children}
         </Typography>
+        {/* <Typography variant="h5" component="h2">
+          {props.children}
+        </Typography> */}
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
   );
 }

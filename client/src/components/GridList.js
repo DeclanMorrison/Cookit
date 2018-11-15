@@ -11,6 +11,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const styles = theme => ({
   root: {
+    width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -25,10 +26,6 @@ const styles = theme => ({
   title: {
     color: theme.palette.primary.light,
   },
-  titleBar: {
-    background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
 });
 
 function SingleLineGridList(props) {
@@ -36,10 +33,10 @@ function SingleLineGridList(props) {
 
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={4}>
+      <GridList className={classes.gridList} cols={3}>
         {["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday",].map(tile => (
           <GridListTile key={tile}>/>
-            <CalendarDay>{tile}</CalendarDay>
+            <CalendarDay size="S">{tile}</CalendarDay>
           </GridListTile>
         ))}
       </GridList>

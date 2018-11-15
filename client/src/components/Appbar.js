@@ -15,14 +15,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import RecentIcon from '@material-ui/icons/History';
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
+import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
 import Image from './img/Logo.png';
 
 import Grid from './Grid';
-
-
-
 
 const drawerWidth = 240;
 
@@ -88,10 +86,11 @@ const styles = theme => ({
         padding: theme.spacing.unit * 3,
     },
     image: {
-        width: 150,   
-        position: 'absolute',
-        left: '50%',
-        transform: 'translate(-50%)'
+        width: 150,
+        padding: 5 
+        // position: 'absolute',
+        // left: '50%',
+        // transform: 'translate(-50%)'
     }
 
 });
@@ -118,32 +117,13 @@ class MiniDrawer extends React.Component {
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
-
                     position="fixed"
                     color="white"
-                    className={classNames(classes.appBar, {
-                        [classes.appBarShift]: this.state.open,
-                    })}
+                    className={classes.appBar}
                 >
 
-                    <Toolbar disableGutters={!this.state.open}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(classes.menuButton, {
-                                [classes.hide]: this.state.open,
-                            })}
-                        >
- 
-                            <MenuIcon />
-
-                        </IconButton>
-                        
+                    <Toolbar disableGutters={true}>
                         <img className={classes.image}src={Image} />
-                        
-
-
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -159,35 +139,26 @@ class MiniDrawer extends React.Component {
                         }),
                     }}
                     open={this.state.open}
+                    onMouseOver={this.handleDrawerOpen}
+                    onMouseOut={this.handleDrawerClose}
                 >
                     <div className={classes.toolbar}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                        </IconButton>
+                        
                     </div>
                     <Divider />
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                        {['Favorites', 'Recents', 'Shopping List'].map((text, index) => (
                             <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <RecentIcon/> : <ShoppingIcon/> }</ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}
                     </List>
                     <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
                     {this.props.children}
-
                 </main>
             </div>
         );

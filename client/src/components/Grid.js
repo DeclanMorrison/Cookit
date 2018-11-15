@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import CalendarDay from "./CalendarDay";
+import CalendarDayLg from "./CalendarDayLg";
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    overflowWrap: 'auto'
+    // whitespace: 'nowrap'
+    // overflow: 'hidden'
   },
   demo: {
-    height: 240,
+    height: 250,
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -47,9 +50,9 @@ class InteractiveGrid extends React.Component {
           >
             {["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday",].map(value => (
               <Grid key={value} item>
-                <CalendarDay>
+                <CalendarDayLg size="L">
                   {value}
-                </CalendarDay>
+                </CalendarDayLg>
               </Grid>
             ))}
           </Grid>

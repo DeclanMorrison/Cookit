@@ -14,6 +14,11 @@ if (process.env.NODE_ENV === "production") {
 }
 // Add routes, both API and view
 // app.use(routes);
+var list = ["item1", "item2", "item3"];
+app.get('/api/test', function(req,res) {
+ res.send(list);
+ console.log('Sent list of items');
+})
 
 // Start the API server
 app.listen(PORT, function() {
