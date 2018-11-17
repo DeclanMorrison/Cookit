@@ -27,9 +27,17 @@ export const SignupDialog = props => {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Full Name"
-              type="email"
+              id="FirstName"
+              label="First Name"
+              type="text"
+              fullWidth
+            />
+             <TextField
+              autoFocus
+              margin="dense"
+              id="LastName"
+              label="Last Name"
+              type="text"
               fullWidth
             />
             <TextField
