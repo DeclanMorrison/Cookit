@@ -6,6 +6,7 @@ import Calendar from "../components/Calendar";
 import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 import { DragDropContext } from 'react-beautiful-dnd';
+import recipes from '../components/recipesobj';
 
 const styles = {
     sectionHeader: {
@@ -21,8 +22,25 @@ class Home extends React.Component {
     super(props);
   };
 
+  state = {
+    recipes : recipes.hits
+  }
+
   onDragEnd = result => {
-    //ToDo
+    const {destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ){ return };
+
+    const newTaskIds = Array.from(this.state.recipes)
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
   };
 
   render() {
@@ -45,7 +63,7 @@ class Home extends React.Component {
             
             <Divider/>
             <br/>
-            <Recipes/>
+            <Recipes recipes={recipes}/>
           </Appbar>
         </DragDropContext>
       </React.Fragment>
