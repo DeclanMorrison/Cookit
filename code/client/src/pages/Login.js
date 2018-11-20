@@ -8,8 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Logo from '../components/img/Logo.png';
-import {SignupDialog} from '../components/Login/SignupDialog';
-import {LoginDialog} from '../components/Login/LoginDialog';
+import SignupDialog from '../components/Login/SignupDialog';
+import LoginDialog from '../components/Login/LoginDialog';
 import HowToReg from '@material-ui/icons/HowToReg';
 import Create from '@material-ui/icons/Create';
 import Appbar from '../components/Appbar';
@@ -74,7 +74,7 @@ class MediaCard extends Component {
             <CardContent>
               <img className={classes.logo} src={Logo} />
               <Typography component="p">
-                To start please Log In. If you do not have an account please Sigh Up
+                To start please Log In. If you do not have an account please Sign Up
             </Typography>
             </CardContent>
           </CardActionArea>
@@ -118,5 +118,3 @@ class MediaCard extends Component {
 
 
 export default withStyles(styles)(MediaCard);
-
-
