@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import recipes from './recipesobj';
 
+import { Droppable } from 'react-beautiful-dnd';
+
+
 const styles = theme => ({
   root: {
     // width: `${window.innerWidth - 300}px`,
