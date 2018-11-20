@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import recipes from './recipesobj';
 
+
 const styles = theme => ({
   root: {
     // width: `${window.innerWidth - 300}px`,
@@ -27,33 +28,55 @@ const styles = theme => ({
   },
 });
 
-function TitlebarGridList(props) {
-  const { classes } = props;
+class TitlebarGridList extends React.Component {
+  constructor(props){
+    super(props);
+  };
 
-  return (
-    <div className={classes.root}>
-      <GridList cellHeight={90} cols={5} className={classes.gridList}>
-        {/* <GridListTile key="Subheader" cols={5} style={{ height: 'auto' }}>
-          <ListSubheader component="div">December</ListSubheader>
-        </GridListTile> */}
-        {recipes.hits.map(hit => (
-          <GridListTile key={hit.recipe.label}>
-            <img src={hit.recipe.image} alt={hit.recipe.label} />
-            <GridListTileBar
-              title={hit.recipe.label}
-              // subtitle={<span>by: {tile.author}</span>}
-              // actionIcon={
-              //   <IconButton className={classes.icon}>
-              //     <InfoIcon />
-              //   </IconButton>
-              // }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
-  );
-}
+  state = {
+    cols : ""
+  }
+
+  handleWindowResize = () => {
+    this.setState({cols: Math.floor(window.innerWidth/282)});
+  };
+
+  componentWillMount = () => {
+    this.handleWindowResize();
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('resize', this.handleWindowResize);
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.handleWindowResize);
+  };
+
+  render () {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <GridList cellHeight={130} cols={this.state.cols} className={classes.gridList}>
+          {recipes.hits.map(hit => (
+            <GridListTile key={hit.recipe.label}>
+              <img src={hit.recipe.image} alt={hit.recipe.label} />
+              <GridListTileBar
+                title={hit.recipe.label}
+                // subtitle={<span>by: {tile.author}</span>}
+                // actionIcon={
+                //   <IconButton className={classes.icon}>
+                //     <InfoIcon /s>
+                //   </IconButton>
+                // }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+    );
+  };
+};
 
 TitlebarGridList.propTypes = {
   classes: PropTypes.object.isRequired,
