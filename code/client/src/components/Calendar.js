@@ -8,15 +8,9 @@ import CalendarDay from './CalendarDay';
 // import tileData from './tileData';
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    // backgroundColor: theme.palette.background.paper,
-  },
+  
   gridList: {
+    width: `100%`,
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
@@ -26,12 +20,45 @@ const styles = theme => ({
   },
 });
 
-function SingleLineGridList(props) {
-  const { classes } = props;
+class SingleLineGridList extends React.Component {
+  constructor(props) {
+    super(props);
+  };
+  
+  state = {
+    width: "",
+  };
 
-  return (
-    <div className={classes.root}>
-      <GridList className={classes.gridList} cols={3}>
+  handleWindowResize = () => {
+    this.setState({width: window.innerWidth - 125});
+  };
+
+  componentWillMount = () => {
+    this.handleWindowResize();
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('resize', this.handleWindowResize);
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.handleWindowResize);
+  };
+
+  render () {
+    const { classes } = this.props;
+    const rootStyle = {
+      width: `${this.state.width}px`,
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      // backgroundColor: theme.palette.background.paper,
+    };
+
+    return (
+    <div style={rootStyle}>
+      <GridList className={classes.gridList} cols={Math.floor((window.innerWidth)/200)}>
         {["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday",].map(tile => (
           <GridListTile key={tile}>/>
             <CalendarDay size="S">{tile}</CalendarDay>
@@ -39,7 +66,8 @@ function SingleLineGridList(props) {
         ))}
       </GridList>
     </div>
-  );
+    )
+  };
 }
 
 SingleLineGridList.propTypes = {

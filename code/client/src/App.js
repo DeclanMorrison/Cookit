@@ -1,9 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Appbar from "./components/Appbar";
 import { withStyles } from '@material-ui/core/styles';
-import Grid from "./components/Grid";
-import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -18,19 +15,35 @@ const styles = {
   }
 };
 
-const App = (props) => {
-  const { classes } = props;
-  return (
-    <Router>
-    <div>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/home" component={Home} />
-        {/* <Route component={NoMatch} /> */}
-      </Switch>
-    </div>
-  </Router>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props);
+  };
+
+  state = {
+    isLoggedIn : false
+  };
+
+  updateLoginState = () => {
+    this.setState({isLoggedIn : !this.state.isLoggedIn});
+  };
+
+  render () {
+    const { classes } = this.props;
+    return (
+      <Router>
+      <div>
+        <Switch>
+          {this.state.isLoggedIn ? 
+          (<React.Fragment><Route exact path="/" component={Login} />
+          <Route exact path="/home" component={Home} /></React.Fragment>) :
+          (<Route path="*" component={Login} />)}
+          {/* <Route component={NoMatch} /> */}
+        </Switch>
+      </div>
+    </Router>
+    );
+  }
 };
 
 export default withStyles(styles)(App);

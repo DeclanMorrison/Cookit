@@ -1,7 +1,8 @@
 import React from "react";
 import Appbar from "../components/Appbar";
 import { withStyles } from '@material-ui/core/styles';
-import Grid from "../components/Grid";
+import Recipes from "../components/Recipes";
+import Calendar from "../components/Calendar";
 import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 
@@ -20,11 +21,20 @@ const styles = {
       <React.Fragment>
         <Appbar>
           <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> This Week</Typography>
-          <br/>
+          
           <Divider/>
           <br/>
-          <Grid className={classes.grid}/>
-          {/* <GridList></GridList> */}
+          <Calendar/>
+
+          <br/>
+          
+          <br/>
+
+          <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> Recommended</Typography>
+          
+          <Divider/>
+          <br/>
+          <Recipes/>
         </Appbar>
       </React.Fragment>
     );
