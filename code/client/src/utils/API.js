@@ -18,7 +18,16 @@ export default {
     return axios.post("/api/saveRecipe", bookData);
   },
   query: function() {
+    console.log( `querying...`)
     return axios.get("/api/search")
+  },
+  login: function(email,password) {
+    console.log( `attempting login...`)
+    return axios.post("/api/login",{username:email,password:password})
+  },
+  signUp: function(user) {
+    console.log( `registering user...${user}`)
+    return axios.post("/api/signup",user)
   }
 
 };
