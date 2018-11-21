@@ -23,7 +23,7 @@ export default {
   },
   login: function(email,password) {
     console.log( `attempting login...`)
-    return axios.post("/api/login",{username:email,password:password})
+    return axios.post("/api/login",{email:email,password:password})
   },
   signUp: function(user) {
     console.log( `registering user...${user}`)
