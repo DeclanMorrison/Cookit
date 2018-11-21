@@ -45,17 +45,16 @@ class SignupDialog extends React.Component {
     console.log(user);
 
     if (passwordMatch) {
-      API.signUp(user).then((result, err) => {
-        if (err) {
-          console.log(err);
+      API.signUp(user).then((res) => {
+        if (res.data != "success") {
+          console.log(res.data);
         } else {
-          console.log(`success! result: ${result}`);
-          this.props.handleCloseSignup();
-          <Link to="/home">About</Link>
+          console.log(`success! result: ${res.data}\n`);
+          this.props.handleCloseSignup;
+          <Link to="/home"></Link>
         }
       });
     }
-    // this.props.handleCloseSignUp();
   };
 
   render() {

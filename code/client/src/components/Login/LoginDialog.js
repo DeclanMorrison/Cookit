@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Redirect } from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,7 +18,8 @@ class LoginDialog extends React.Component {
 
   state = {
     email: "",
-    pass: ""
+    pass: "",
+    redirect: false
   };
 
   handleOnChange = event => {
@@ -30,18 +32,25 @@ class LoginDialog extends React.Component {
   handleSignInAttempt = () => {
     let email = this.state.email;
     let password = this.state.pass;
-    API.login(email, password).then((result, err) => {
-      if (err) {
-        console.log(err);
+    API.login(email, password).then((res, err) => {
+      if (res.data.status != "success")  {
+        console.log(res.data);
       } else {
-        console.log(`success! result: ${result}`);
+        console.log(`success! result: ${res.data}`);
         this.props.handleCloseLogin();
+        this.setState({redirect:true})
       }
     });
     
   };
 
   render() {
+    const { redirect } = this.state
+
+    if (redirect) {
+      return <Redirect to='/'/>;
+    }
+
     return (
       <Dialog
         open={this.props.open}
