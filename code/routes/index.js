@@ -21,13 +21,18 @@ router.get("/", function(req, res) {
 });
 
 router.get("/login", function(req, res) {
+  console.log(req.user);
   // If the user already has an account send them to the members page
   if (req.user) {
-    console.log(`${req.user} is signed in`)
-    res.redirect("/home");
+    // res.redirect("/home");
+    res.send({
+      status: "success",
+      reason: "user signed in"
+    });
+  } else {
+    console.log(`User is not signed in'`);
+    res.sendFile(path.join(__dirname, "./login.html"));
   }
-  console.log(`User is not signed in'`)
-  res.sendFile(path.join(__dirname, "./public/login.html"));
 });
 
 // Here we've add our isAuthenticated middleware to this route.
@@ -35,6 +40,5 @@ router.get("/login", function(req, res) {
 router.get("/isAuthenticated", isAuthenticated, function(req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
-
 
 module.exports = router;
