@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Routes from "./Routes";
 import { withStyles } from '@material-ui/core/styles';
 import 'typeface-fjalla-one';
 import Home from "./pages/Home";
@@ -31,17 +32,10 @@ class App extends React.Component {
   render () {
     const { classes } = this.props;
     return (
-      <Router>
-      <div>
-        <Switch>
-          {this.state.isLoggedIn ? 
-          (<React.Fragment><Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Home} /></React.Fragment>) :
-          (<Route path="*" component={Login} />)}
-          {/* <Route component={NoMatch} /> */}
-        </Switch>
+      <div className="container">
+        <Link to="/"></Link>
+        <Routes />
       </div>
-    </Router>
     );
   }
 };
