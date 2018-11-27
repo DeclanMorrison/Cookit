@@ -100,6 +100,7 @@ class MediaCard extends Component {
         <SignupDialog 
         open={this.state.openSignup}
         handleCloseSignup={this.handleCloseSignup}
+        handleOpenLogin={this.handleClickOpenLogin}
         />
         <LoginDialog 
         open={this.state.openLogin}
