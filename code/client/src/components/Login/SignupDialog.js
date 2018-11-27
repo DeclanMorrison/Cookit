@@ -11,6 +11,7 @@ import Done from "@material-ui/icons/Done";
 import Close from "@material-ui/icons/Close";
 import API from "../../utils/API";
 
+
 class SignupDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,8 @@ class SignupDialog extends React.Component {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    errors: {}
   };
 
   handleOnChange = event => {
@@ -43,18 +45,75 @@ class SignupDialog extends React.Component {
         : (passwordMatch = false);
 
     console.log(user);
+    
+    let errors = {};
+    let formIsValid = true;
 
-    if (passwordMatch) {
+    if (!user["firstName"]) {
+      formIsValid = false;
+      errors["firstName"] = "*Please enter your First Name.";
+    }
+
+    if (typeof user["firstName"] !== "undefined") {
+      if (!user["firstName"].match(/^[a-zA-Z ]*$/)) {
+        formIsValid = false;
+        errors["firstName"] = "*Please enter alphabet characters only.";
+      }
+    }
+    if (!user["lastName"]) {
+      formIsValid = false;
+      errors["lastName"] = "*Please enter your Last Name.";
+    }
+
+    if (typeof user["lastName"] !== "undefined") {
+      if (!user["lastName"].match(/^[a-zA-Z ]*$/)) {
+        formIsValid = false;
+        errors["lastName"] = "*Please enter alphabet characters only.";
+      }
+    }
+
+    if (!user["email"]) {
+      formIsValid = false;
+      errors["email"] = "*Please enter your email.";
+    }
+
+    if (typeof user["email"] !== "undefined") {
+      //regular expression for email validation
+      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(user["email"])) {
+        formIsValid = false;
+        errors["email"] = "*Please enter valid email Adderss.";
+      }
+    }
+
+
+    if (!user["password"]) {
+      formIsValid = false;
+      errors["password"] = "*Please enter your password.";
+    }
+
+    if (typeof user["password"] !== "undefined") {
+      if (!user["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+        formIsValid = false;
+        errors["password"] = "*Please enter secure and strong password.";
+      }
+    }
+
+    if (formIsValid) {
       API.signUp(user).then((res) => {
         if (res.data != "success") {
           console.log(res.data);
         } else {
           console.log(`success! result: ${res.data}\n`);
-          this.props.handleCloseSignup;
-          <Link to="/home"></Link>
+          this.props.handleCloseSignup();
+          this.props.handleOpenLogin();
         }
       });
     }
+    this.setState({
+      errors: errors
+    });
+    return formIsValid;
   };
 
   render() {
@@ -79,6 +138,7 @@ class SignupDialog extends React.Component {
             type="string"
             fullWidth
           />
+          <div className="errorMsg">{this.state.errors.firstName}</div>
           <TextField
             value={this.state.lastName}
             onChange={this.handleOnChange}
@@ -89,6 +149,7 @@ class SignupDialog extends React.Component {
             type="string"
             fullWidth
           />
+          <div className="errorMsg">{this.state.errors.lastName}</div>
           <TextField
             value={this.state.email}
             onChange={this.handleOnChange}
@@ -99,6 +160,7 @@ class SignupDialog extends React.Component {
             type="string"
             fullWidth
           />
+          <div className="errorMsg">{this.state.errors.email}</div>
           <TextField
             value={this.state.password}
             onChange={this.handleOnChange}
@@ -106,9 +168,11 @@ class SignupDialog extends React.Component {
             margin="dense"
             id="password"
             label="Password"
-            type="string"
+            type="password"
             fullWidth
           />
+          <div className="errorMsg">{this.state.errors.password}</div>
+
           <TextField
             value={this.state.confirmpass}
             onChange={this.handleOnChange}
@@ -116,7 +180,7 @@ class SignupDialog extends React.Component {
             margin="dense"
             id="confirmPassword"
             label="Confirm Password"
-            type="string"
+            type="password"
             fullWidth
           />
         </DialogContent>
