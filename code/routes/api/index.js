@@ -1,50 +1,66 @@
 //Where we make all our calls for recipe searches and such - izaak
 // Grabbing our models
-var db = require("../../models");
-const path = require("path");
 const router = require("express").Router();
-const axios = require("axios");
 const controller = require("../../controllers/controller.js");
 var passport = require("../../config/passport");
+var isAuthenticated = require("../../config/middleware/isAuthenticated");
 
-// module.exports = function(app) {
-
+// module.exports = app => {
+// // login section
 router.post("/signup", controller.signup);
 
-// // login section
-router.post("/login", controller.login);
+router.post("/login", function(req, res, next) {
+    console.log("signing in")
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      console.log("no user found");
+      return res.send({
+        status: "unsuccessful",
+        reason: "invalid credentials"
+      });
+    }
+    req.logIn(user, function(err) {
+      console.log(user);
+      if (err) {
+        return next(err);
+      }
+      return res.json({
+        data: req.User.dataValues
+      });
+      // return res.send({
+      //   status: "success",
+      //   reason: "sign in",
+      //   user: user.username
+      // user:req.data.username
+    });
+  });
+});
 
-// Route for getting some data about our user to be used client side
+// //checking if signed in
+router.get("/checkauth", isAuthenticated, function(req, res) {
+  console.log("auth here");
+  return res.status(200).json({
+    status: "Login successful!"
+  });
+});
+
+// Route for logging user out
+router.get("/logout", function(req, res) {
+  console.log("signing out");
+  req.logout();
+  res.redirect("/");
+});
+
+// recipe routes
 router.get("/user_data", controller.getUserData);
 
-// app.get("/api/recipes", (req, res) => {
-//   console.log("\nRetreiving all recipes...\n");
-//   db.Recipes.findAll({}).then(dbRecipes => {
-//     res.send("it worked finally");
-//   });
-// });
+router.get("/favorites", controller.getFavoriteRecipes);
 
-// app.get("/recipe/id", function(req, res) {
-//   console.log("\nRetreiving recipe...\n");
-//   db.Favorites.findOne({
-//     where: { recipeID: req.recipeID }
-//   }).then(dbUser => {
-//     console.log(dbUser);
-//     res.redirect("/");
-//   });
-// });
+router.get("/findOneFavorite", controller.findOneFavorite);
 
-// app.get("/search", function(req, res) {
-//   axios
-//     .get(
-//       "https://api.edamam.com/search?q=chicken&app_id=f457772e&app_key=47c5a1d77ba0337a17e3f917071f5c6e"
-//     )
-//     .then(results => {
-//       console.log(results.data.hits[1]);
-//     })
-//     .catch(error => {
-//       console.log(`Error in query: ${error}`);
-//     });
-// });
-// };
+router.get("/findRecipes", controller.findRecipes);
+
 module.exports = router;
