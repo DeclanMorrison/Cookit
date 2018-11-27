@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -23,7 +23,10 @@ class SignupDialog extends React.Component {
     email: "",
     password: "",
     confirmPassword: "",
-    errors: {}
+    errors: {},
+    redirect: false,
+    user: ""
+
   };
 
   handleOnChange = event => {
@@ -107,8 +110,12 @@ class SignupDialog extends React.Component {
           console.log(`success! result: ${res.data}\n`);
           this.props.handleCloseSignup();
           this.props.handleOpenLogin();
+          this.setState({ redirect: true, user:res.data.user});
+
         }
       });
+    } else {
+      console.log("passwords dont match, try again")
     }
     this.setState({
       errors: errors
@@ -117,85 +124,88 @@ class SignupDialog extends React.Component {
   };
 
   render() {
-    return (
-      <Dialog
-        open={this.props.open}
-        onClose={this.props.handleCloseSignup}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To sign up please fill in the fields below.
-          </DialogContentText>
-          <TextField
-            value={this.state.firstName}
-            onChange={this.handleOnChange}
-            autoFocus
-            margin="dense"
-            id="firstName"
-            label="First Name"
-            type="string"
-            fullWidth
-          />
-          <div className="errorMsg">{this.state.errors.firstName}</div>
-          <TextField
-            value={this.state.lastName}
-            onChange={this.handleOnChange}
-            // autoFocus
-            margin="dense"
-            id="lastName"
-            label="Last Name"
-            type="string"
-            fullWidth
-          />
-          <div className="errorMsg">{this.state.errors.lastName}</div>
-          <TextField
-            value={this.state.email}
-            onChange={this.handleOnChange}
-            // autoFocus
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="string"
-            fullWidth
-          />
-          <div className="errorMsg">{this.state.errors.email}</div>
-          <TextField
-            value={this.state.password}
-            onChange={this.handleOnChange}
-            // autoFocus
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-          />
-          <div className="errorMsg">{this.state.errors.password}</div>
 
-          <TextField
-            value={this.state.confirmpass}
-            onChange={this.handleOnChange}
-            // autoFocus
-            margin="dense"
-            id="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.handleCloseSignup} color="secondary">
-            <Close />
-            Cancel
-          </Button>
-          <Button onClick={this.handleSignUpAttempt} color="primary">
-            <Done />
-            Sign Up
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/" />;
+    } else {
+      return (
+        <Dialog
+          open={this.props.open}
+          onClose={this.props.handleCloseSignup}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To sign up please fill in the fields below.
+            </DialogContentText>
+            <TextField
+              value={this.state.firstName}
+              onChange={this.handleOnChange}
+              autoFocus
+              margin="dense"
+              id="firstName"
+              label="First Name"
+              type="string"
+              fullWidth
+            />
+            <TextField
+              value={this.state.lastName}
+              onChange={this.handleOnChange}
+              // autoFocus
+              margin="dense"
+              id="lastName"
+              label="Last Name"
+              type="string"
+              fullWidth
+            />
+            <TextField
+              value={this.state.email}
+              onChange={this.handleOnChange}
+              // autoFocus
+              margin="dense"
+              id="email"
+              label="Email Address"
+              type="string"
+              fullWidth
+            />
+            <TextField
+              value={this.state.password}
+              onChange={this.handleOnChange}
+              // autoFocus
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
+              fullWidth
+            />
+            <TextField
+              value={this.state.confirmpass}
+              onChange={this.handleOnChange}
+              // autoFocus
+              margin="dense"
+              id="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.handleCloseSignup} color="secondary">
+              <Close />
+              Cancel
+            </Button>
+            <Button onClick={this.handleSignUpAttempt} color="primary">
+              <Done />
+              Sign Up
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    }
+
   }
 }
 

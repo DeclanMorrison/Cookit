@@ -25,8 +25,12 @@ export default {
     console.log( `attempting login...`)
     return axios.post("/api/login",{email:email,password:password})
   },
+  logout: function() {
+    console.log( `attempting logout...`)
+    return axios.get("/api/logout")
+  },
   signUp: function(user) {
-    console.log( `registering user...${user}`)
+    console.log( `registering user...${user.email}`)
     return axios.post("/api/signup",user)
   }
 
