@@ -89,7 +89,7 @@ class MediaCard extends Component {
           </Button>
           
           <Button onClick={this.handleOpenAppbar} size="large" color="secondary" className={classes.button}>
-            <Link to={"/home"}>Test</Link>
+            <Link to={"/"}>Test</Link>
               
           </Button>
 

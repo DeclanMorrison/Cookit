@@ -30,12 +30,9 @@ class App extends React.Component {
   };
 
   render () {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
-      <div className="container">
-        <Link to="/"></Link>
-        <Routes />
-      </div>
+        <Routes/>
     );
   }
 };
