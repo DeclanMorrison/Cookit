@@ -16,7 +16,7 @@ const styles = {
 
 function SimpleCard(props) {
   const { classes } = props;
-  console.log(props.size);
+  // console.log(props.size);
   return (
     <Card className={classes.card}>
       <CardContent>

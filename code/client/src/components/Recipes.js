@@ -4,13 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import recipes from './recipesobj';
+import defaultRecipes from './recipesobj';
 import StarIcon from '@material-ui/icons/StarRateRounded'
 import OpenIcon from '@material-ui/icons/ExitToAppRounded';
-import DropIcon from '@material-ui/icons/KeyboardArrowDownRounded'
 import { Zoom, Tooltip } from '@material-ui/core';
 import Menu from '../components/Menu';
 
@@ -66,10 +63,9 @@ class TitlebarGridList extends React.Component {
     return (
       <div className={classes.root}>
         <GridList cellHeight={130} cols={this.state.cols} className={classes.gridList}>
-          {(Object.keys(this.props.recipes).length === 0 
-            ? recipes.hits 
-            : this.props.recipes.hits).map(hit => (
-            <GridListTile key={hit.recipe.label}>
+          {(this.props.recipes.length === 0 ? defaultRecipes.hits : this.props.recipes).map((hit, index) => (
+            
+            <GridListTile key={index}>
               <img src={hit.recipe.image} alt={hit.recipe.label} />
               <GridListTileBar
                 title={hit.recipe.label}
@@ -83,7 +79,7 @@ class TitlebarGridList extends React.Component {
                   <Tooltip TransitionComponent={Zoom} title="View on Site">
                     <OpenIcon onClick={() => this.handleOpenInSite(hit.recipe.url)}/>
                   </Tooltip>
-                    <Menu/> 
+                    <Menu recipe={hit.recipe} handleAddRecipeToCalendar={this.props.handleAddRecipeToCalendar}/> 
                     {/* Add functionality to add to calendar */}
                   </IconButton>
                 }

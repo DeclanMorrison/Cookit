@@ -13,9 +13,6 @@ import API from "../../utils/API";
 
 
 class SignupDialog extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     firstName: "",
@@ -104,7 +101,7 @@ class SignupDialog extends React.Component {
 
     if (formIsValid) {
       API.signUp(user).then((res) => {
-        if (res.data != "success") {
+        if (res.data !== "success") {
           console.log(res.data);
         } else {
           console.log(`success! result: ${res.data}\n`);

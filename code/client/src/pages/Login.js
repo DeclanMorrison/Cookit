@@ -12,8 +12,6 @@ import SignupDialog from '../components/Login/SignupDialog';
 import LoginDialog from '../components/Login/LoginDialog';
 import HowToReg from '@material-ui/icons/HowToReg';
 import Create from '@material-ui/icons/Create';
-import Appbar from '../components/Appbar';
-
 
 const styles = theme => ({
   root: {
@@ -72,7 +70,7 @@ class MediaCard extends Component {
         <Card className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <img className={classes.logo} src={Logo} />
+              <img className={classes.logo} src={Logo} alt="logo"/>
               <Typography component="p">
                 To start please Log In. If you do not have an account please Sigh Up
             </Typography>

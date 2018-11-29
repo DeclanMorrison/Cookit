@@ -7,7 +7,6 @@ import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 import SearchBar from '../components/SearchBar';
 import {Grid} from '@material-ui/core'
-import axios from 'axios';
 const styles = {
     sectionHeader: {
       fontFamily: "Fjalla One",
@@ -21,29 +20,42 @@ const styles = {
   };
   
   class Home extends React.Component {
-    constructor(props){
-      super(props);
-    };
-
+    
     state ={ 
       calendarRecipes: {
-        "Monday" : {},
-        "Tuesday" : {},
-        "Wednesday" : {},
-        "Thursday" : {},
-        "Friday" : {},
-        "Saturday" : {},
-        "Sunday" : {},
+        "Monday" : [],
+        "Tuesday" : [],
+        "Wednesday" : [],
+        "Thursday" : [],
+        "Friday" : [],
+        "Saturday" : [],
+        "Sunday" : [],
       },
-      recipes : {}
+      recipes : [],
+      searchTerm: ""
+    };
+
+    handleAddRecipeToCalendar = (recipe, day) => {
+      const newDay = this.state.calendarRecipes[day];
+      const newCalendarRecipes = this.state.calendarRecipes;
+
+      newDay.push(recipe);
+
+      newCalendarRecipes[day] = newDay;
+
+      this.setState({calendarRecipes: newCalendarRecipes});
+    };
+
+    handleUpdateSearchTerm = (term) => {
+      this.setState({searchTerm: term});
     };
 
     handleUpdateRecipes = (recipes) => {
-      this.setState({recipes : {}});
-      this.setState({recipes : recipes});
+      // this.setState({recipes : {}});
+      this.setState({recipes : recipes.hits});
     };
 
-    handleUpdateCalendarRecipes = (day, recipe) => {
+    handleUpdateCalendarRecipes = (recipe, day) => {
       const calendarRecipesState = this.state.calendarRecipes;
       calendarRecipesState[day] = recipe;
       this.setState({calendarRecipes: calendarRecipesState})
@@ -65,12 +77,12 @@ const styles = {
       const { classes } = this.props;
       return (
         <React.Fragment>
-          <Appbar>
+          <Appbar calendarRecipes={this.state.calendarRecipes}>
             <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> This Week</Typography>
             
             <Divider/>
             <br/>
-            <Calendar/>
+            <Calendar calendarRecipes={this.state.calendarRecipes}/>
 
             <br/>
             
@@ -78,18 +90,18 @@ const styles = {
             
             <Grid container spacing={8} justify="space-between" alignItems="flex-end">
               <Grid item>
-                <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3"> Recommended</Typography>
+                <Typography className={classes.sectionHeader} font="typeface-fjalla-one" variant="h3">{this.state.searchTerm ? ` Recipes for ${this.state.searchTerm}` : ` Recommended Recipes`}</Typography>
               </Grid>
               
               <Grid item>
-                <SearchBar handleUpdateRecipes={this.handleUpdateRecipes} className={classes.searchBar}></SearchBar>
+                <SearchBar handleUpdateSearchTerm={this.handleUpdateSearchTerm} handleUpdateRecipes={this.handleUpdateRecipes} className={classes.searchBar}></SearchBar>
               </Grid>
             </Grid>
             
             
             <Divider/>
             <br/>
-            <Recipes recipes={this.state.recipes}/>
+            <Recipes recipes={this.state.recipes} handleAddRecipeToCalendar={this.handleAddRecipeToCalendar}/>
           </Appbar>
         </React.Fragment>
       );

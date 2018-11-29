@@ -1,12 +1,14 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import DropIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import DropIcon from '@material-ui/icons/DateRangeRounded';
 import {Tooltip, Zoom } from '@material-ui/core';
 
 class SimpleMenu extends React.Component {
+  constructor(props){
+    super(props);
+  };
+
   state = {
     anchorEl: null,
   };
@@ -15,9 +17,9 @@ class SimpleMenu extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (event) => {
-    console.log(event);
+  handleClose = (day) => {
     this.setState({ anchorEl: null });
+    this.props.handleAddRecipeToCalendar(this.props.recipe, day)
   };
 
   render() {
@@ -25,12 +27,6 @@ class SimpleMenu extends React.Component {
 
     return (
       <React.Fragment>
-        {/* <Button
-          aria-owns={anchorEl ? 'simple-menu' : undefined}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-        > */}
-        {/* </Button> */}
         <Tooltip TransitionComponent={Zoom} title="Add to Calendar">
           <DropIcon onClick={this.handleClick}></DropIcon>
         </Tooltip>
@@ -40,13 +36,13 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Monday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Tuesday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Wednesday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Thursday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Friday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Saturday</MenuItem>
-          <MenuItem onClick={this.handleClose}>Sunday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Monday")}>Monday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Tuesday")}>Tuesday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Wednesday")}>Wednesday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Thursday")}>Thursday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Friday")}>Friday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Saturday")}>Saturday</MenuItem>
+          <MenuItem onClick={() => this.handleClose("Sunday")}>Sunday</MenuItem>
         </Menu>
       </React.Fragment>
     );
