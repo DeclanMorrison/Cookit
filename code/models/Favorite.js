@@ -1,31 +1,38 @@
 module.exports = function (sequelize, DataTypes) {
   const Favorite = sequelize.define("Favorite", {
-    ID: {
+    id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    Recipe: {
-      type: DataTypes.STRING,
+    userID:{
       allowNull: false,
+      type: DataTypes.UUID,
     },
-    Uri: {
+    recipe: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    Ingredients: {
+    image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    ingredients: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    diet: {
+      type: DataTypes.STRING,
+      allowNull: true,
       len: [1]
     },
-    Diet: {
+    health: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
-    },
-    Health: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       len: [1]
     }
   });

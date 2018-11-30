@@ -23,8 +23,12 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 // We need to use sessions to keep track of our user's login status
+// app.use(cookieParser('cookit'));
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({ 
+    secret: "cookit", 
+    name: "cookit_Cookie"
+   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,3 +55,4 @@ db.connection.sync().then(function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });
 });
+module.exports = app;

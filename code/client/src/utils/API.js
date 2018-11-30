@@ -14,24 +14,32 @@ export default {
     return axios.delete("/api/recipe/" + id);
   },
   // Saves a recipe to the database
-  saveRecipe: function(bookData) {
-    return axios.post("/api/saveRecipe", bookData);
+  saveRecipe: function(recipe) {
+    console.log("saving recipe")
+    return axios.post("/api/saveRecipe",recipe);
   },
+
+  // saveRecipe: function(recipeData) {
+  //   return axios.post("/api/saveRecipe", recipeData);
+  // },
   query: function() {
-    console.log( `querying...`)
-    return axios.get("/api/search")
+    console.log(`querying...`);
+    return axios.get("/api/search");
   },
-  login: function(email,password) {
-    console.log( `attempting login...`)
-    return axios.post("/api/login",{email:email,password:password})
+  login: function(email, password) {
+    console.log(`attempting login...`);
+    return axios.post("/api/login", { email: email, password: password });
   },
   logout: function() {
-    console.log( `attempting logout...`)
-    return axios.get("/api/logout")
+    console.log(`attempting logout...`);
+    return axios.get("/api/logout");
   },
   signUp: function(user) {
-    console.log( `registering user...${user.email}`)
-    return axios.post("/api/signup",user)
+    console.log(`registering user...${user.email}`);
+    return axios.post("/api/signup", user);
+  },
+  checkAuth: function(user) {
+    console.log(`checking auth on ${user.email}`);
+    return axios.get("/api/checkAuth", user);
   }
-
 };

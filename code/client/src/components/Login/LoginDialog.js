@@ -34,28 +34,39 @@ class LoginDialog extends React.Component {
     let password = this.state.password;
     if (email && password) {
       API.login(email, password).then(res => {
-        debugger;
         console.log(`attempting login with email:${email} and ${password}`);
-        if (res.data.status !== "success") {
-          console.log(res.data);
+        if (res.data.message !== "user authenticated") {
+          console.log(`user not authenticated`);
+         
         } else {
-          console.log(`success! result: ${res.data}`);
+          console.log(`success! result: ${res.data.message}`);
           this.props.handleCloseLogin();
           this.setState({ redirect: true });
         }
-        this.props.handleCloseLogin();
       });
     } else {
       // set it up to alert user that form input/s are empty and to retry login
+      console.log("Something went wrong with login")
     }
   };
 
   handleLogout = () => {
+    console.log("logging out")
     API.logout().then(res => {
       console.log(res);
     });
     this.props.handleCloseLogin();
   };
+
+  checkAuth = () => {
+    let user= {
+      email:this.state.email,
+      password:this.state.password
+    }
+    API.checkAuth(user).then((res) => {
+      console.log(res)
+    })
+  }
 
   render() {
     const { redirect } = this.state;
@@ -105,7 +116,7 @@ class LoginDialog extends React.Component {
               <Close />
               Cancel
             </Button>
-            <Button onClick={this.props.handleLogout} color="secondary">
+            <Button onClick={this.handleLogout} color="secondary">
               <Close />
               logout
             </Button>
