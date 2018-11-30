@@ -1,32 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { withStyles, 
+         Card,
+         CardContent,
+         Typography, 
+         CardMedia, 
+         GridListTileBar } from '@material-ui/core';
 
 const styles = {
   card: {
-    height: '99%',
+    height: '80%',
   },
-  title: {
-    fontSize: 14,
+  titleBar: {
+    marginTop: '30px',
+    borderRadius: '4px',
+    background:
+      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+      'rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)',
   },
 };
 
 function SimpleCard(props) {
   const { classes } = props;
-  // console.log(props.size);
+
   return (
     <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.children}
-        </Typography>
-      </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      {Object.keys(props.recipe).length === 0 ? <div></div> :
+      <React.Fragment>
+        <img src={props.recipe.image}/>
+        <GridListTileBar
+          className={classes.titleBar}
+          title={props.recipe.label}
+          titlePosition="top"/>
+      </React.Fragment>}
     </Card>
   );
 }
