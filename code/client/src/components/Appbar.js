@@ -105,19 +105,19 @@ class MiniDrawer extends React.Component {
     };
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         return (
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
                     position="fixed"
-                    color="white"
+                    color="inherit"
                     className={classes.appBar}
                 >
 
                     <Toolbar disableGutters={true}>
-                        <img className={classes.image}src={Image} />
+                        <img className={classes.image}src={Image} alt="blank"/>
                     </Toolbar>
                 </AppBar>
                 <Drawer

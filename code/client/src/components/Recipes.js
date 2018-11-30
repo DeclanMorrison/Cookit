@@ -1,3 +1,4 @@
+
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,7 +14,10 @@ import OpenIcon from "@material-ui/icons/ExitToAppRounded";
 import DropIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import { Zoom, Tooltip } from "@material-ui/core";
 import Menu from "../components/Menu";
+import defaultRecipes from './recipesobj';
 import API from "../utils/API";
+
+
 
 const styles = theme => ({
   root: {
@@ -83,44 +87,26 @@ class TitlebarGridList extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <GridList
-          cellHeight={130}
-          cols={this.state.cols}
-          className={classes.gridList}
-        >
-          {(Object.keys(this.props.recipes).length === 0
-            ? recipes.hits
-            : this.props.recipes.hits
-          ).map(hit => (
-            <GridListTile key={hit.recipe.label}>
+        <GridList cellHeight={130} cols={this.state.cols} className={classes.gridList}>
+          {(this.props.recipes.length === 0 ? defaultRecipes.hits : this.props.recipes).map((hit, index) => (
+            
+            <GridListTile key={index}>
+
               <img src={hit.recipe.image} alt={hit.recipe.label} />
               <GridListTileBar
                 title={hit.recipe.label}
                 // subtitle={<span>by: {tile.author}</span>}
                 actionIcon={
                   <IconButton className={classes.icon}>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title="Add to Favorites"
-                    >
-                      <StarIcon
-                        onClick={() =>
-                          this.handleAddToFavorites(
-                            hit.recipe.label,
-                            hit.recipe.image,
-                            hit.recipe.url,
-                            hit.recipe.ingredients
-                          )
-                        }
-                      />
-                      {/* Add functionality to add to favorites */}
-                    </Tooltip>
-                    <Tooltip TransitionComponent={Zoom} title="View on Site">
-                      <OpenIcon
-                        onClick={() => this.handleOpenInSite(hit.recipe.url)}
-                      />
-                    </Tooltip>
-                    <Menu />
+
+                  <Tooltip TransitionComponent={Zoom} title="Add to Favorites">
+                    <StarIcon/>
+                    {/* Add functionality to add to favorites */}
+                  </Tooltip>
+                  <Tooltip TransitionComponent={Zoom} title="View on Site">
+                    <OpenIcon onClick={() => this.handleOpenInSite(hit.recipe.url)}/>
+                  </Tooltip>
+                    <Menu recipe={hit.recipe} handleAddRecipeToCalendar={this.props.handleAddRecipeToCalendar}/> 
                     {/* Add functionality to add to calendar */}
                   </IconButton>
                 }

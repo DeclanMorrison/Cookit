@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import CalendarDay from './CalendarDay';
+import Typography from '@material-ui/core/Typography'
 import { getDay } from 'date-fns';
 
 // import tileData from './tileData';
@@ -22,7 +23,7 @@ const styles = theme => ({
 });
 
 class SingleLineGridList extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
   };
   
@@ -60,9 +61,15 @@ class SingleLineGridList extends React.Component {
     return (
     <div style={rootStyle}>
       <GridList className={classes.gridList} cols={Math.floor((window.innerWidth)/200)}>
-        {["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday",].map(tile => (
-          <GridListTile key={tile}>/>
-            <CalendarDay size="S">{tile}</CalendarDay>
+        {Object.keys(this.props.calendarRecipes).map(title => (
+          <GridListTile key={title}>/>
+            <CalendarDay>{title}
+              {this.props.calendarRecipes[title].map(recipe => (
+                <Typography variant="h5" component="h2">
+                  {recipe.label}
+                </Typography>
+              ))}
+            </CalendarDay>
           </GridListTile>
         ))}
       </GridList>

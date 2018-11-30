@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core';
 import axios from 'axios';
@@ -31,13 +28,9 @@ const styles = theme => ({
 });
 
 class SearchBar extends React.Component {
-  
-  constructor(props){
-    super(props);
-  };
 
   state = {
-    searchTerm: 'Chicken Parmesean',
+    searchTerm: 'Mac And Cheese',
   };
 
   handleChange = name => event => {
@@ -46,7 +39,8 @@ class SearchBar extends React.Component {
     });
   };
 
-  handleSearchClick = () => {
+  handleSearchClick = (event) => {
+    event.preventDefault();
     axios.get("https://api.edamam.com/search", {
       params: {
         q: this.state.searchTerm,
@@ -55,6 +49,7 @@ class SearchBar extends React.Component {
       }
     }).then(response => {
       this.props.handleUpdateRecipes(response.data);
+      this.props.handleUpdateSearchTerm(this.state.searchTerm);
       console.log(response.data);
     });
   };
@@ -62,7 +57,7 @@ class SearchBar extends React.Component {
   render() {
     const { classes } = this.props;
     return(
-      <form className={classes.container} noValidate autoComplete="off">
+      <form onSubmit={this.handleSearchClick} className={classes.container} noValidate autoComplete="off">
         <TextField
           id="standard-name"
           label="Search recipes here"

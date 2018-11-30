@@ -12,9 +12,6 @@ import Close from "@material-ui/icons/Close";
 import API from "../../utils/API";
 
 class LoginDialog extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     email: "",

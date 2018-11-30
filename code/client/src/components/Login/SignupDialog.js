@@ -13,9 +13,6 @@ import API from "../../utils/API";
 
 
 class SignupDialog extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     firstName: "",
