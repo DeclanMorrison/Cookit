@@ -2,8 +2,8 @@ const db = require("../models");
 var passport = require("../config/passport");
 
 module.exports = {
+
   signup: (req, res) => {
-    console.log(`signing up ${req.body.firstName} in DB`);
     let newuser = req.body;
     // check if email is already in database, error out if true
     db.User.findAll({
@@ -36,6 +36,39 @@ module.exports = {
       }
     });
   },
+
+  logout: (req, res) => {
+    console.log(`signing out ${req.body.id}`);
+    req.logout();
+    res.redirect("/");
+  },
+
+  saveRecipe: (req, res) => {
+      console.log(`logging req.user  ${JSON.stringify(req.user)}\n`);
+    
+      if (req.isAuthenticated()) {
+        let recipe = req.body
+        let userID = req.user.id;
+        // add to our database
+        db.Favorite.create({
+          userID: userID,
+          recipe: recipe.name,
+          image: recipe.image,
+          url: recipe.url,
+          ingredients: JSON.stringify(recipe.ingredients)
+        })
+          .then(data => {
+           return res.json({ data: data });;
+          })
+          .catch(function(err) {
+            console.log(err);
+            return res.json({err});
+          });
+      } else {
+        console.log("no user");
+        res.json({ message: "user not signed in" });
+      }
+    },
 
   getFavoriteRecipes: (req, res) => {
     console.log("\nRetreiving all favorited recipes...\n");

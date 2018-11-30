@@ -86,38 +86,31 @@ class SignupDialog extends React.Component {
       }
     }
 
-
     if (!user["password"]) {
       formIsValid = false;
       errors["password"] = "*Please enter your password.";
     }
 
-    if (typeof user["password"] !== "undefined") {
-      if (!user["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
-        formIsValid = false;
-        errors["password"] = "*Please enter secure and strong password.";
-      }
-    }
+    // if (typeof user["password"] !== "undefined") {
+    //   if (!user["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+    //     formIsValid = false;
+    //     errors["password"] = "*Please enter secure and strong password.";
+    //   }
+    // }
 
     if (formIsValid) {
       API.signUp(user).then((res) => {
-        if (res.data !== "success") {
-          console.log(res.data);
-        } else {
           console.log(`success! result: ${res.data}\n`);
           this.props.handleCloseSignup();
           this.props.handleOpenLogin();
           this.setState({ redirect: true, user:res.data.user});
+        })
+    } 
 
-        }
-      });
-    } else {
-      console.log("passwords dont match, try again")
-    }
-    this.setState({
-      errors: errors
-    });
-    return formIsValid;
+    // this.setState({
+    //   errors: errors
+    // });
+    // return formIsValid;
   };
 
   render() {

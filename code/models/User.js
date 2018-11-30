@@ -5,9 +5,10 @@ const bcrypt = require("bcrypt-nodejs");
 module.exports = (connection, DataTypes) => {
   var User = connection.define("User", {
     id: {
-      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
 
     firstName: {
