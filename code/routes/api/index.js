@@ -2,57 +2,37 @@
 // Grabbing our models
 const router = require("express").Router();
 const controller = require("../../controllers/controller.js");
-var passport = require("../../config/passport");
-var isAuthenticated = require("../../config/middleware/isAuthenticated");
+const passport = require("../../config/passport");
+const checkAuth = require("../../config/middleware/checkAuth");
 
-// module.exports = app => {
 // // login section
 router.post("/signup", controller.signup);
 
-router.post("/login", function(req, res, next) {
-    console.log("signing in")
-  passport.authenticate("local", function(err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      console.log("no user found");
-      return res.send({
-        status: "unsuccessful",
-        reason: "invalid credentials"
-      });
-    }
-    req.logIn(user, function(err) {
-      console.log(user);
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        data: req.User.dataValues
-      });
-      // return res.send({
-      //   status: "success",
-      //   reason: "sign in",
-      //   user: user.username
-      // user:req.data.username
+router.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/login" }),
+  function(req, res) {
+    console.log(`req body -${req.user}`);
+    res.json({
+      message: "user authenticated",
+      user: req.user
     });
-  });
-});
+  }
+);
+
+// save recipe
+router.post("/saveRecipe", controller.saveRecipe);
 
 // //checking if signed in
-router.get("/checkauth", isAuthenticated, function(req, res) {
-  console.log("auth here");
+router.get("/checkAuth", checkAuth, function(req, res) {
+  console.log(`${req.user} is checking auth...`);
   return res.status(200).json({
     status: "Login successful!"
   });
 });
 
 // Route for logging user out
-router.get("/logout", function(req, res) {
-  console.log("signing out");
-  req.logout();
-  res.redirect("/");
-});
+router.get("/logout", controller.logout);
 
 // recipe routes
 router.get("/user_data", controller.getUserData);
