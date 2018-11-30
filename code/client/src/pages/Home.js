@@ -7,6 +7,7 @@ import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 import SearchBar from '../components/SearchBar';
 import {Grid} from '@material-ui/core'
+
 const styles = {
     sectionHeader: {
       fontFamily: "Fjalla One",
@@ -23,24 +24,23 @@ const styles = {
     
     state ={ 
       calendarRecipes: {
-        "Monday" : [],
-        "Tuesday" : [],
-        "Wednesday" : [],
-        "Thursday" : [],
-        "Friday" : [],
-        "Saturday" : [],
-        "Sunday" : [],
+        "Monday" : {},
+        "Tuesday" : {},
+        "Wednesday" : {},
+        "Thursday" : {},
+        "Friday" : {},
+        "Saturday" : {},
+        "Sunday" : {},
       },
       recipes : [],
       searchTerm: ""
     };
 
     handleAddRecipeToCalendar = (recipe, day) => {
-      const newDay = this.state.calendarRecipes[day];
+      let newDay = this.state.calendarRecipes[day];
       const newCalendarRecipes = this.state.calendarRecipes;
 
-      newDay.push(recipe);
-
+      newDay = recipe;
       newCalendarRecipes[day] = newDay;
 
       this.setState({calendarRecipes: newCalendarRecipes});
