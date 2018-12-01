@@ -24,12 +24,12 @@ router.post(
 router.post("/saveRecipe", controller.saveRecipe);
 
 // //checking if signed in
-router.get("/checkAuth", checkAuth, function(req, res) {
-  console.log(`${req.user} is checking auth...`);
-  return res.status(200).json({
-    status: "Login successful!"
-  });
-});
+// router.get("/checkAuth", checkAuth, function(req, res) {
+//   console.log(`${req.user} is checking auth...`);
+//   return res.status(200).json({
+//     status: "Login successful!"
+//   });
+// });
 
 // Route for logging user out
 router.get("/logout", controller.logout);
