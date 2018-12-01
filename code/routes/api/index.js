@@ -3,7 +3,7 @@
 const router = require("express").Router();
 const controller = require("../../controllers/controller.js");
 const passport = require("../../config/passport");
-const checkAuth = require("../../config/middleware/checkAuth");
+// const checkAuth = require("../../config/middleware/checkAuth");
 
 // // login section
 router.post("/signup", controller.signup);

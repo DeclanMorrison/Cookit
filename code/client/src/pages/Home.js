@@ -43,54 +43,49 @@ class Home extends React.Component {
 
     newDay = recipe;
     newCalendarRecipes[day] = newDay;
-  
-    // setter
+
 
     this.setState({ calendarRecipes: newCalendarRecipes });
-    // localStorage.setItem('recipes', JSON.stringify(day.newCalendarRecipes));
-
-    // // getter
-    // localStorage.getItem('myData');
   };
 
   handleUpdateSearchTerm = (term) => {
-    
+
     this.setState({ searchTerm: term });
+
+
   };
 
   handleUpdateRecipes = (recipes) => {
-    
+
     // this.setState({recipes : {}});
     this.setState({ recipes: recipes.hits });
   };
 
-  handleUpdateCalendarRecipes = (recipe, day) => {
-  
-    const calendarRecipesState = this.state.calendarRecipes;
-    calendarRecipesState[day] = recipe;
-    this.setState({ calendarRecipes: calendarRecipesState })
-   
-  }
- 
-  componentWillMount(){
-    localStorage.getItem("day") && this.setState({
-      days: JSON.parse(localStorage.getItem('day')),
-      isLoading: false
-    })
-  }
+  // handleUpdateCalendarRecipes = (recipe, day) => {
 
-  componentDidMount(){
-    if(!localStorage.getItem('day')){
-      
-    }else{
-      console.log("Using data from localStorage")
+  //   const calendarRecipesState = this.state.calendarRecipes;
+  //   calendarRecipesState[day] = recipe;
+  //   this.setState({ calendarRecipes: calendarRecipesState })
+
+  // }
+
+  // Getting Items From LocalStorage On reload
+  componentWillMount() {
+    const saveCal = localStorage.getItem('day')
+    if (saveCal === null) {
+      return;
+    } else {
+      this.setState({
+        calendarRecipes: JSON.parse(saveCal),
+      })
     }
-   
+    console.log(saveCal, typeof saveCal);
   }
 
-  componentWillUpdate(nextProps,nextState){
-    localStorage.setItem("day",JSON.stringify(nextState.calendarRecipes));
-  } 
+// Setting Items For LocalStorage
+  componentWillUpdate() {
+    localStorage.setItem("day", JSON.stringify(this.state.calendarRecipes));
+  }
 
   // componentDidMount = () => {
   //   axios.get("https://api.edamam.com/search", {
