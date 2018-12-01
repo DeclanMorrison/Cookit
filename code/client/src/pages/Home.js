@@ -7,6 +7,7 @@ import { Typography, Divider } from "@material-ui/core";
 import 'typeface-fjalla-one';
 import SearchBar from '../components/SearchBar';
 import {Grid} from '@material-ui/core'
+import { isThisMonth } from "date-fns";
 
 const styles = {
     sectionHeader: {
@@ -33,8 +34,19 @@ const styles = {
         "Sunday" : {},
       },
       recipes : [],
-      searchTerm: ""
+      searchTerm: "",
+      // ingredients: []
     };
+
+    // handleAddToIngredients = (r, i) => {
+    //   const stateIngredients = this.state.ingredients;
+    //   const recipeObj ={name: r, ingredients: []}
+    //   i.forEach((value, index) => {
+    //     recipeObj.ingredients.push(value.text);
+    //   });
+    //   stateIngredients.push(recipeObj);
+    //   this.setState({ingredients: stateIngredients});
+    // };
 
     handleAddRecipeToCalendar = (recipe, day) => {
       let newDay = this.state.calendarRecipes[day];
@@ -82,7 +94,7 @@ const styles = {
             
             <Divider/>
             <br/>
-            <Calendar calendarRecipes={this.state.calendarRecipes}/>
+            <Calendar handleAddRecipeToCalendar={this.handleAddRecipeToCalendar} calendarRecipes={this.state.calendarRecipes} handleAddToIngredients={this.handleAddToIngredients}/>
 
             <br/>
             

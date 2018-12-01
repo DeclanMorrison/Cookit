@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/CloseRounded';
+import IconButton from '@material-ui/core/IconButton';
 import { withStyles, 
          Card,
          CardContent,
@@ -18,6 +20,9 @@ const styles = {
       'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
       'rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)',
   },
+  icon: {
+    color: 'white'
+  }
 };
 
 function SimpleCard(props) {
@@ -31,7 +36,14 @@ function SimpleCard(props) {
         <GridListTileBar
           className={classes.titleBar}
           title={props.recipe.label}
-          titlePosition="top"/>
+          titlePosition="top"
+          actionIcon={
+            <IconButton className={classes.icon} onClick={() => props.handleAddRecipeToCalendar({}, props.title)}>
+              <DeleteIcon />
+            </IconButton>
+          }
+          actionPosition="right"
+          />
       </React.Fragment>}
     </Card>
   );
