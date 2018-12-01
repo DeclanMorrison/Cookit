@@ -13,7 +13,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import RecentIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
-import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
+import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import Image from './img/Logo.png';
 
 const drawerWidth = 240;
@@ -141,9 +142,9 @@ class MiniDrawer extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        {['Favorites', 'Recents', 'Shopping List'].map((text, index) => (
+                        {['Favorites', 'Shopping List', 'Log Out'].map((text, index) => (
                             <ListItem button key={text}>
-                                <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <RecentIcon/> : <ShoppingIcon/> }</ListItemIcon>
+                                <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <ShoppingIcon/> : <ExitToApp/> }</ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}
