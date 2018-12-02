@@ -13,7 +13,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import RecentIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
-import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
+import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import Image from './img/Logo.png';
 import GroceryPopup from './GroceryPopup';
 
@@ -23,6 +24,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         display: 'flex',
+        
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -145,10 +147,10 @@ class MiniDrawer extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        {['Favorites', 'Shopping List'].map((text, index) => (
-                            <ListItem button key={text} onClick={()=>this.props.handleView(text)}>
-                                <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 2 ? <RecentIcon/> : <ShoppingIcon/> }</ListItemIcon>
 
+                        {['Favorites', 'Shopping List', 'Log Out'].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <GroceryPopup calendarRecipes={this.props.calendarRecipes}/> : <ExitToApp/> }</ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}
