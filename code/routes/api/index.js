@@ -3,7 +3,7 @@
 const router = require("express").Router();
 const controller = require("../../controllers/controller.js");
 const passport = require("../../config/passport");
-const checkAuth = require("../../config/middleware/checkAuth");
+// const checkAuth = require("../../config/middleware/checkAuth");
 
 // // login section
 router.post("/signup", controller.signup);
@@ -22,25 +22,12 @@ router.post(
 
 // save recipe
 router.post("/saveRecipe", controller.saveRecipe);
+// get favorites
+router.get("/getFavorites", controller.getFavorites);
 
-// //checking if signed in
-router.get("/checkAuth", checkAuth, function(req, res) {
-  console.log(`${req.user} is checking auth...`);
-  return res.status(200).json({
-    status: "Login successful!"
-  });
-});
+router.delete("/removeFavorite", controller.removeFavorite);
 
 // Route for logging user out
 router.get("/logout", controller.logout);
-
-// recipe routes
-router.get("/user_data", controller.getUserData);
-
-router.get("/favorites", controller.getFavoriteRecipes);
-
-router.get("/findOneFavorite", controller.findOneFavorite);
-
-router.get("/findRecipes", controller.findRecipes);
 
 module.exports = router;

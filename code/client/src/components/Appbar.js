@@ -95,6 +95,9 @@ const styles = theme => ({
 
 
 class MiniDrawer extends React.Component {
+    constructor(props) {
+        super(props);
+      }
     state = {
         open: false,
     };
@@ -144,6 +147,7 @@ class MiniDrawer extends React.Component {
                     </div>
                     <Divider />
                     <List>
+
                         {['Favorites', 'Shopping List', 'Log Out'].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <GroceryPopup calendarRecipes={this.props.calendarRecipes}/> : <ExitToApp/> }</ListItemIcon>
