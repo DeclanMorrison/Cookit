@@ -5,20 +5,16 @@ import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-
 import InfoIcon from "@material-ui/icons/Info";
 import recipes from "./recipesobj";
 import StarIcon from "@material-ui/icons/StarRateRounded";
 import OpenIcon from "@material-ui/icons/ExitToAppRounded";
-import DropIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import { Zoom, Tooltip } from "@material-ui/core";
 import Menu from "../components/Menu";
 import defaultRecipes from './recipesobj';
+import FavoritesSB from './FavoritesSB'
 import API from "../utils/API";
-
-
 
 const styles = theme => ({
   root: {
@@ -44,7 +40,7 @@ class TitlebarGridList extends React.Component {
   }
 
   state = {
-    cols: ""
+    cols: "",
   };
 
   handleWindowResize = () => {
@@ -101,12 +97,13 @@ class TitlebarGridList extends React.Component {
                 actionIcon={
                   <IconButton className={classes.icon}>
 
-                  <Tooltip TransitionComponent={Zoom} title="Add to Favorites">
+                  <FavoritesSB handleAddToFavorites = {this.handleAddToFavorites} hit={hit}/>
 
+                  {/* <Tooltip TransitionComponent={Zoom} title="Add to Favorites">
                     <StarIcon onClick={() => this.handleAddToFavorites(hit.recipe.label,hit.recipe.image,hit.recipe.url,hit.recipe.ingredients)}/>
 
                     {/* Add functionality to add to favorites */}
-                  </Tooltip>
+                  {/* </Tooltip> */}
                   <Tooltip TransitionComponent={Zoom} title="View on Site">
                     <OpenIcon onClick={() => this.handleOpenInSite(hit.recipe.url)}/>
                   </Tooltip>

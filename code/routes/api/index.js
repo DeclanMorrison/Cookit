@@ -19,12 +19,13 @@ router.post(
     });
   }
 );
+// logout
+router.post("/logout", controller.logout);
 
 // save recipe
 router.post("/saveRecipe", controller.saveRecipe);
 // get favorites
 router.get("/getFavorites", controller.getFavorites);
-
 
 router.delete("/removeFavorite", controller.removeFavorite);
 

@@ -41,13 +41,10 @@ module.exports = {
     res.json({
       message: "user logged out"
     });
-    console.log(`signing out ${req.body.id}`);
-    req.logout();
-    res.redirect("/");
   },
 
   saveRecipe: (req, res) => {
-    console.log(`logging req.user  ${JSON.stringify(req.user)}\n`);
+    // console.log(`logging req.user  ${JSON.stringify(req.user)}\n`);
 
     if (req.isAuthenticated()) {
       let recipe = req.body;
@@ -74,7 +71,7 @@ module.exports = {
   },
 
   getFavorites: (req, res) => {
-    console.log(`logging req.user - ${JSON.stringify(req.user)}\n`);
+    // console.log(`logging req.user - ${JSON.stringify(req.user)}\n`);
     if (req.isAuthenticated()) {
       let userID = req.user.id;
       // add to our database

@@ -30,7 +30,7 @@ export default {
   },
   logout: function() {
     console.log(`attempting logout...`);
-    return axios.get("/api/logout");
+    return axios.post("/api/logout");
   },
   signUp: function(user) {
     console.log(`registering user...${user.email}`);
