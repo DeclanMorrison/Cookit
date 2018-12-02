@@ -15,6 +15,7 @@ import RecentIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import ShoppingIcon from '@material-ui/icons/ShoppingCartOutlined'
 import Image from './img/Logo.png';
+import GroceryPopup from './GroceryPopup';
 
 const drawerWidth = 240;
 
@@ -147,6 +148,7 @@ class MiniDrawer extends React.Component {
                         {['Favorites', 'Shopping List'].map((text, index) => (
                             <ListItem button key={text} onClick={()=>this.props.handleView(text)}>
                                 <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 2 ? <RecentIcon/> : <ShoppingIcon/> }</ListItemIcon>
+
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}

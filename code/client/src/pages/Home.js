@@ -9,6 +9,8 @@ import "typeface-fjalla-one";
 import SearchBar from "../components/SearchBar";
 import { Grid } from "@material-ui/core";
 import API from "../utils/API";
+import { isThisMonth } from "date-fns";
+
 
 const styles = {
   sectionHeader: {
@@ -21,55 +23,71 @@ const styles = {
   //   marginBottom: '100px'
   // }
 };
+  
+  class Home extends React.Component {
+    
+    state ={ 
+      calendarRecipes: {
+        "Monday" : {},
+        "Tuesday" : {},
+        "Wednesday" : {},
+        "Thursday" : {},
+        "Friday" : {},
+        "Saturday" : {},
+        "Sunday" : {},
+      },
+      recipes : [],
+      favorites[],
+      searchTerm: "",
+      view: "Recommended"
+      // ingredients: []
+    };
 
-class Home extends React.Component {
-  state = {
-    calendarRecipes: {
-      Monday: {},
-      Tuesday: {},
-      Wednesday: {},
-      Thursday: {},
-      Friday: {},
-      Saturday: {},
-      Sunday: {}
-    },
-    recipes: [],
-    favorites: [],
-    searchTerm: "",
-    view: "Recommended"
-  };
+    // handleAddToIngredients = (r, i) => {
+    //   const stateIngredients = this.state.ingredients;
+    //   const recipeObj ={name: r, ingredients: []}
+    //   i.forEach((value, index) => {
+    //     recipeObj.ingredients.push(value.text);
+    //   });
+    //   stateIngredients.push(recipeObj);
+    //   this.setState({ingredients: stateIngredients});
+    // };
 
-  handleView = newview => {
-    console.log(`view is changing to ${newview}`);
-    if (newview === "Favorites") {
-      this.getFavorites();
-      this.setState({ view: newview });
-    } else {
-      this.setState({ view: newview });
-    }
-  };
+    handleView = newview => {
+      console.log(`view is changing to ${newview}`);
+      if (newview === "Favorites") {
+        this.getFavorites();
+        this.setState({ view: newview });
+      } else {
+        this.setState({ view: newview });
+           }
+    };
 
-  handleAddRecipeToCalendar = (recipe, day) => {
-    console.log(`adding ${recipe} to calender`)
-    let newDay = this.state.calendarRecipes[day];
-    const newCalendarRecipes = this.state.calendarRecipes;
+    handleAddRecipeToCalendar = (recipe, day) => {
+      let newDay = this.state.calendarRecipes[day];
+      const newCalendarRecipes = this.state.calendarRecipes;
 
-    newDay = recipe;
-    newCalendarRecipes[day] = newDay;
+      newDay = recipe;
+      newCalendarRecipes[day] = newDay;
 
-    this.setState({ calendarRecipes: newCalendarRecipes });
-  };
+      this.setState({calendarRecipes: newCalendarRecipes});
+    };
 
-  handleUpdateSearchTerm = term => {
-    this.setState({ searchTerm: term });
-  };
+    handleUpdateSearchTerm = (term) => {
+      this.setState({searchTerm: term});
+    };
 
-  handleUpdateRecipes = recipes => {
-    // this.setState({recipes : {}});
-    this.setState({ recipes: recipes.hits });
-  };
+    handleUpdateRecipes = (recipes) => {
+      // this.setState({recipes : {}});
+      this.setState({recipes : recipes.hits});
+    };
 
-  getFavorites = recipes => {
+    handleUpdateCalendarRecipes = (recipe, day) => {
+      const calendarRecipesState = this.state.calendarRecipes;
+      calendarRecipesState[day] = recipe;
+      this.setState({calendarRecipes: calendarRecipesState})
+      
+    getFavorites = recipes => {
     console.log(`getting favorites`);
     API.getFavorites().then(res => {
       let recipeList = res.data.hits;
@@ -78,6 +96,18 @@ class Home extends React.Component {
       console.log(`Favorites are - ${this.state.favorites}`);
     });
   };
+
+    // componentDidMount = () => {
+    //   axios.get("https://api.edamam.com/search", {
+    //     params: {
+    //       q: "lobster",
+    //       app_id: "f457772e",
+    //       app_key: "47c5a1d77ba0337a17e3f917071f5c6e"
+    //     }
+    //   }).then(response => {
+    //     this.setState({recipes : response});
+    //   });
+    // };
 
   render() {
     const { classes } = this.props;
@@ -123,7 +153,9 @@ class Home extends React.Component {
 
           <Divider />
           <br />
-          <Calendar calendarRecipes={this.state.calendarRecipes} />
+          <Calendar handleAddRecipeToCalendar={this.handleAddRecipeToCalendar} 
+        calendarRecipes={this.state.calendarRecipes} 
+        handleAddToIngredients={this.handleAddToIngredients}/>
 
           <br />
 
