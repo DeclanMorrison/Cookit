@@ -102,7 +102,9 @@ class TitlebarGridList extends React.Component {
                   <IconButton className={classes.icon}>
 
                   <Tooltip TransitionComponent={Zoom} title="Add to Favorites">
-                    <StarIcon onClick={()=>{this.handleAddToFavorites(hit.recipe.label,hit.recipe.image,hit.recipe.url,hit.recipe.ingredients)}}/>
+
+                    <StarIcon onClick={() => this.handleAddToFavorites(hit.recipe.label,hit.recipe.image,hit.recipe.url,hit.recipe.ingredients)}/>
+
                     {/* Add functionality to add to favorites */}
                   </Tooltip>
                   <Tooltip TransitionComponent={Zoom} title="View on Site">

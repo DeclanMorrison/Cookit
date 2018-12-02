@@ -11,7 +11,6 @@ import { Grid } from "@material-ui/core";
 import API from "../utils/API";
 import { isThisMonth } from "date-fns";
 
-
 const styles = {
   sectionHeader: {
     fontFamily: "Fjalla One"
@@ -19,11 +18,11 @@ const styles = {
   grid: {
     overflowX: "auto"
   }
+
   // searchBar: {
   //   marginBottom: '100px'
   // }
 };
-  
   class Home extends React.Component {
     
     state ={ 
@@ -81,6 +80,23 @@ const styles = {
       // this.setState({recipes : {}});
       this.setState({recipes : recipes.hits});
     };
+  // Getting Items From LocalStorage On reload
+  componentWillMount() {
+    const saveCal = localStorage.getItem('day')
+    if (saveCal === null) {
+      return;
+    } else {
+      this.setState({
+        calendarRecipes: JSON.parse(saveCal),
+      })
+    }
+    console.log(saveCal, typeof saveCal);
+  }
+
+// Setting Items For LocalStorage
+  componentWillUpdate() {
+    localStorage.setItem("day", JSON.stringify(this.state.calendarRecipes));
+  }
 
     handleUpdateCalendarRecipes = (recipe, day) => {
       const calendarRecipesState = this.state.calendarRecipes;
