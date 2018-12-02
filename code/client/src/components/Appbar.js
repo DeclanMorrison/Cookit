@@ -149,7 +149,7 @@ class MiniDrawer extends React.Component {
                     <List>
 
                         {['Favorites', 'Shopping List', 'Log Out'].map((text, index) => (
-                            <ListItem button key={text}>
+                            <ListItem button key={text} onClick={()=>this.props.handleView(text)}>
                                 <ListItemIcon>{index === 0 ? <FavoriteIcon/> : index === 1 ? <GroceryPopup calendarRecipes={this.props.calendarRecipes}/> : <ExitToApp/> }</ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>

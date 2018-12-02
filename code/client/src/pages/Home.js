@@ -36,7 +36,7 @@ const styles = {
         "Sunday" : {},
       },
       recipes : [],
-      favorites[],
+      favorites: [],
       searchTerm: "",
       view: "Recommended"
       // ingredients: []
@@ -81,49 +81,39 @@ const styles = {
       this.setState({recipes : recipes.hits});
     };
   // Getting Items From LocalStorage On reload
-  componentWillMount() {
-    const saveCal = localStorage.getItem('day')
-    if (saveCal === null) {
-      return;
-    } else {
-      this.setState({
-        calendarRecipes: JSON.parse(saveCal),
-      })
+    componentWillMount() {
+      const saveCal = localStorage.getItem('day')
+      if (saveCal === null) {
+        return;
+      } else {
+        this.setState({
+          calendarRecipes: JSON.parse(saveCal),
+        })
+      }
+      console.log(saveCal, typeof saveCal);
     }
-    console.log(saveCal, typeof saveCal);
-  }
 
-// Setting Items For LocalStorage
-  componentWillUpdate() {
-    localStorage.setItem("day", JSON.stringify(this.state.calendarRecipes));
-  }
+  // Setting Items For LocalStorage
+    componentWillUpdate() {
+      localStorage.setItem("day", JSON.stringify(this.state.calendarRecipes));
+    }
 
     handleUpdateCalendarRecipes = (recipe, day) => {
       const calendarRecipesState = this.state.calendarRecipes;
       calendarRecipesState[day] = recipe;
       this.setState({calendarRecipes: calendarRecipesState})
-      
-    getFavorites = recipes => {
-    console.log(`getting favorites`);
-    API.getFavorites().then(res => {
+    }
+
+    getFavorites = () => {
+      console.log(`getting favorites`);
+      API.getFavorites().then(res => {
       let recipeList = res.data.hits;
       console.log(res);
       this.setState({ favorites: recipeList });
       console.log(`Favorites are - ${this.state.favorites}`);
-    });
-  };
+      });
+    };
 
-    // componentDidMount = () => {
-    //   axios.get("https://api.edamam.com/search", {
-    //     params: {
-    //       q: "lobster",
-    //       app_id: "f457772e",
-    //       app_key: "47c5a1d77ba0337a17e3f917071f5c6e"
-    //     }
-    //   }).then(response => {
-    //     this.setState({recipes : response});
-    //   });
-    // };
 
   render() {
     const { classes } = this.props;
