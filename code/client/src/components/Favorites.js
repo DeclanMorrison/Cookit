@@ -5,16 +5,11 @@ import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/DeleteForever";
-import InfoIcon from "@material-ui/icons/Info";
-import recipes from "./recipesobj";
 import OpenIcon from "@material-ui/icons/ExitToAppRounded";
-import DropIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import { Zoom, Tooltip } from "@material-ui/core";
 import Menu from "../components/Menu";
-import defaultRecipes from './recipesobj';
 import API from "../utils/API";
 
 const styles = theme => ({

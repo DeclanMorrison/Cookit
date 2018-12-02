@@ -31,7 +31,6 @@ class LoginDialog extends React.Component {
     let password = this.state.password;
     if (email && password) {
       API.login(email, password).then(res => {
-        console.log(`attempting login with email:${email} and ${password}`);
         if (res.data.message !== "user authenticated") {
           console.log(`user not authenticated`);
          
@@ -55,21 +54,11 @@ class LoginDialog extends React.Component {
     this.props.handleCloseLogin();
   };
 
-  checkAuth = () => {
-    let user= {
-      email:this.state.email,
-      password:this.state.password
-    }
-    API.checkAuth(user).then((res) => {
-      console.log(res)
-    })
-  }
-
   render() {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/home" />;
     } else {
       return (
         <Dialog
