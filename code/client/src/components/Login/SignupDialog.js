@@ -86,17 +86,17 @@ class SignupDialog extends React.Component {
       }
     }
 
-    if (!user["password"]) {
-      formIsValid = false;
-      errors["password"] = "*Please enter your password.";
-    }
+    // if (!user["password"]) {
+    //   formIsValid = false;
+    //   errors["password"] = "*Please enter your password.";
+    // }
 
-    if (typeof user["password"] !== "undefined") {
-      if (!user["password"].match(/^.*((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/)) {
-        formIsValid = false;
-        errors["password"] = "*Please enter secure and strong password.";
-      }
-    }
+    // if (typeof user["password"] !== "undefined") {
+    //   if (!user["password"].match(/^.*((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/)) {
+    //     formIsValid = false;
+    //     errors["password"] = "*Please enter secure and strong password.";
+    //   }
+    // }
 
     if (formIsValid) {
       API.signUp(user).then((res) => {
@@ -118,7 +118,7 @@ class SignupDialog extends React.Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/home" />;
     } else {
       return (
         <Dialog
